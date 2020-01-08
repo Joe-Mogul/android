@@ -53,7 +53,7 @@ public class GetUserProfileOperation extends SyncOperation {
      *
      * @param remotePath Remote path of the file.
      */
-    public GetUserProfileOperation(String remotePath) {
+    GetUserProfileOperation(String remotePath) {
         mRemotePath = remotePath;
     }
 
@@ -124,13 +124,8 @@ public class GetUserProfileOperation extends SyncOperation {
 
                     /// get avatar (optional for success)
                     int dimension = getAvatarDimension();
-                    UserProfile.UserAvatar currentUserAvatar = userProfilesRepository.getAvatar(storedAccount.name);
 
-                    GetRemoteUserAvatarOperation getAvatarOperation = new GetRemoteUserAvatarOperation(
-                            dimension,
-                            (currentUserAvatar == null)
-                                    ? ""
-                                    : currentUserAvatar.getEtag());
+                    GetRemoteUserAvatarOperation getAvatarOperation = new GetRemoteUserAvatarOperation(dimension);
 
                     RemoteOperationResult<GetRemoteUserAvatarOperation.ResultData> avatarOperationResult =
                             getAvatarOperation.execute(client);
